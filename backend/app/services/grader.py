@@ -18,7 +18,7 @@ def grade_code_submission(code: str, expected_output: str) -> Tuple[bool, str, s
     try:
         # Execute code in subprocess with timeout
         result = subprocess.run(
-            ["python", "-c", code],
+            ["python3", "-c", code],
             capture_output=True,
             text=True,
             timeout=settings.SANDBOX_TIMEOUT
