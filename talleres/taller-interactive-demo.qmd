@@ -1,0 +1,472 @@
+---
+title: "Taller Interactivo - Demostración de Soluciones"
+format: html
+---
+
+# Taller Interactivo: Práctica con Verificación Automática
+
+Este taller demuestra la capacidad interactiva del libro. Puedes escribir código Python o respuestas matemáticas y recibir retroalimentación inmediata.
+
+## Configuración del API
+
+::: {.callout-note}
+Para que los problemas interactivos funcionen, el backend debe estar ejecutándose en `http://localhost:8000`.
+Para desarrollo local: `cd backend && source venv/bin/activate && python3 run.py`
+:::
+
+<script>
+// Configurar la URL del API backend
+window.LINEAR_ALGEBRA_API_URL = 'http://localhost:8000/api/v1';
+</script>
+
+## Problema 1: Operaciones Básicas en NumPy
+
+**Descripción:** Escribe código Python que cree un vector $\mathbf{v} = (1, 2, 3)$ usando NumPy e imprima su suma total.
+
+```html
+<div id="code-problem-numpy_sum" class="interactive-problem code-submission-problem">
+  <div class="problem-header">
+    <h4>Suma de Componentes de un Vector</h4>
+  </div>
+  
+  <div class="problem-description">
+    Crea un vector NumPy con valores [1, 2, 3] e imprime la suma de sus componentes.
+    El resultado debe ser el número 6.
+  </div>
+  
+  <div class="code-editor-container">
+    <label>Código Python:</label>
+    <textarea id="code-input-numpy_sum" class="code-editor-input" placeholder="import numpy as np
+v = np.array([1, 2, 3])
+print(v.sum())">import numpy as np
+v = np.array([1, 2, 3])
+print(v.sum())</textarea>
+  </div>
+  
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitCode('numpy_sum')">Enviar Código</button>
+    <button class="btn btn-secondary" onclick="resetCode('numpy_sum')">Limpiar</button>
+    <span id="loading-numpy_sum" class="loading hidden">Verificando...</span>
+  </div>
+  
+  <div id="feedback-numpy_sum" class="feedback-container hidden">
+    <div id="feedback-status-numpy_sum" class="feedback-status"></div>
+    <div id="feedback-message-numpy_sum" class="feedback-message"></div>
+    <div id="feedback-output-numpy_sum" class="feedback-output"></div>
+  </div>
+</div>
+```
+
+## Problema 2: Respuesta Matemática
+
+**Descripción:** Calcula el producto punto de $\mathbf{u} = (1, 2)$ y $\mathbf{v} = (3, 4)$.
+
+```html
+<div id="math-problem-dot_product" class="interactive-problem math-submission-problem">
+  <div class="problem-header">
+    <h4>Producto Punto</h4>
+  </div>
+  
+  <div class="problem-description">
+    Calcula el producto punto (dot product) de los vectores:
+    $$\mathbf{u} = (1, 2) \quad \text{y} \quad \mathbf{v} = (3, 4)$$
+    
+    Recuerda que: $\mathbf{u} \cdot \mathbf{v} = u_1 v_1 + u_2 v_2$
+  </div>
+  
+  <div class="answer-input-container">
+    <label for="answer-input-dot_product">Tu respuesta:</label>
+    <input type="text" id="answer-input-dot_product" class="answer-input" placeholder="Escribe el resultado aquí">
+  </div>
+  
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitMath('dot_product')">Verificar</button>
+    <button class="btn btn-secondary" onclick="resetMath('dot_product')">Limpiar</button>
+    <span id="loading-math-dot_product" class="loading hidden">Verificando...</span>
+  </div>
+  
+  <div id="feedback-math-dot_product" class="feedback-container hidden">
+    <div id="feedback-status-math-dot_product" class="feedback-status"></div>
+    <div id="feedback-message-math-dot_product" class="feedback-message"></div>
+  </div>
+</div>
+```
+
+## Problema 3: Operaciones Matriciales
+
+**Descripción:** Escribe código para crear una matriz 2×2 y calcular su determinante.
+
+```html
+<div id="code-problem-matrix_det" class="interactive-problem code-submission-problem">
+  <div class="problem-header">
+    <h4>Determinante de una Matriz</h4>
+  </div>
+  
+  <div class="problem-description">
+    Crea una matriz 2×2: $M = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$
+    
+    Calcula e imprime su determinante usando NumPy: `np.linalg.det()`
+    El resultado debe ser -2.0
+  </div>
+  
+  <div class="code-editor-container">
+    <label>Código Python:</label>
+    <textarea id="code-input-matrix_det" class="code-editor-input" placeholder="import numpy as np
+M = np.array([[1, 2], [3, 4]])
+det = np.linalg.det(M)
+print(det)">import numpy as np
+M = np.array([[1, 2], [3, 4]])
+det = np.linalg.det(M)
+print(int(det))</textarea>
+  </div>
+  
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitCode('matrix_det')">Enviar Código</button>
+    <button class="btn btn-secondary" onclick="resetCode('matrix_det')">Limpiar</button>
+    <span id="loading-matrix_det" class="loading hidden">Verificando...</span>
+  </div>
+  
+  <div id="feedback-matrix_det" class="feedback-container hidden">
+    <div id="feedback-status-matrix_det" class="feedback-status"></div>
+    <div id="feedback-message-matrix_det" class="feedback-message"></div>
+    <div id="feedback-output-matrix_det" class="feedback-output"></div>
+  </div>
+</div>
+```
+
+---
+
+## Cómo Funciona
+
+1. **Escribe tu solución** en el área de código o en el campo de respuesta
+2. **Haz clic en "Enviar"** para enviar al servidor de verificación
+3. **Recibe retroalimentación inmediata** sobre si tu respuesta es correcta
+
+Los problemas interactivos permiten:
+- ✓ Escribir y ejecutar código Python directamente
+- ✓ Responder preguntas matemáticas con verificación automática
+- ✓ Recibir feedback instantáneo
+
+---
+
+<script>
+// Configurar la URL del API backend
+window.LINEAR_ALGEBRA_API_URL = 'http://localhost:8000/api/v1';
+
+// Funciones de envío de código (del componente code-submission.html)
+async function submitCode(problemId) {
+  const codeInput = document.getElementById(`code-input-${problemId}`);
+  const feedbackDiv = document.getElementById(`feedback-${problemId}`);
+  const statusDiv = document.getElementById(`feedback-status-${problemId}`);
+  const messageDiv = document.getElementById(`feedback-message-${problemId}`);
+  const outputDiv = document.getElementById(`feedback-output-${problemId}`);
+  const loadingSpan = document.getElementById(`loading-${problemId}`);
+  
+  const code = codeInput.value.trim();
+  
+  if (!code) {
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '⚠ Por favor escribe algo de código';
+    feedbackDiv.classList.remove('hidden');
+    return;
+  }
+  
+  loadingSpan.classList.remove('hidden');
+  feedbackDiv.classList.add('hidden');
+  
+  try {
+    const response = await fetch(`${window.LINEAR_ALGEBRA_API_URL}/submit/code`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        problem_id: problemId,
+        code: code,
+        user_id: null
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    feedbackDiv.classList.remove('hidden');
+    
+    if (result.is_correct) {
+      statusDiv.className = 'feedback-status correct';
+      statusDiv.textContent = '✓ ¡Correcto!';
+    } else {
+      statusDiv.className = 'feedback-status incorrect';
+      statusDiv.textContent = '✗ Incorrecto';
+    }
+    
+    messageDiv.textContent = result.feedback || 'Sin retroalimentación';
+    
+    if (result.execution_output) {
+      outputDiv.textContent = `Salida:\n${result.execution_output}`;
+    } else if (result.execution_error) {
+      outputDiv.textContent = `Error:\n${result.execution_error}`;
+    } else {
+      outputDiv.textContent = '';
+    }
+    
+  } catch (error) {
+    feedbackDiv.classList.remove('hidden');
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '✗ Error';
+    messageDiv.textContent = `Error: ${error.message}\n\nAsegúrate de que el backend está en http://localhost:8000`;
+    outputDiv.textContent = '';
+  } finally {
+    loadingSpan.classList.add('hidden');
+  }
+}
+
+function resetCode(problemId) {
+  document.getElementById(`code-input-${problemId}`).value = '';
+  document.getElementById(`feedback-${problemId}`).classList.add('hidden');
+}
+
+// Funciones de envío de respuestas matemáticas
+async function submitMath(problemId) {
+  const answerInput = document.getElementById(`answer-input-${problemId}`);
+  const feedbackDiv = document.getElementById(`feedback-math-${problemId}`);
+  const statusDiv = document.getElementById(`feedback-status-math-${problemId}`);
+  const messageDiv = document.getElementById(`feedback-message-math-${problemId}`);
+  const loadingSpan = document.getElementById(`loading-math-${problemId}`);
+  
+  const answer = answerInput.value.trim();
+  
+  if (!answer) {
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '⚠ Por favor escribe una respuesta';
+    feedbackDiv.classList.remove('hidden');
+    return;
+  }
+  
+  loadingSpan.classList.remove('hidden');
+  feedbackDiv.classList.add('hidden');
+  
+  try {
+    const response = await fetch(`${window.LINEAR_ALGEBRA_API_URL}/submit/math`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        problem_id: problemId,
+        answer: answer,
+        user_id: null
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    feedbackDiv.classList.remove('hidden');
+    
+    if (result.is_correct) {
+      statusDiv.className = 'feedback-status correct';
+      statusDiv.textContent = '✓ ¡Correcto!';
+    } else {
+      statusDiv.className = 'feedback-status incorrect';
+      statusDiv.textContent = '✗ Incorrecto';
+    }
+    
+    messageDiv.textContent = result.feedback || 'Sin retroalimentación';
+    
+  } catch (error) {
+    feedbackDiv.classList.remove('hidden');
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '✗ Error';
+    messageDiv.textContent = `Error: ${error.message}`;
+  } finally {
+    loadingSpan.classList.add('hidden');
+  }
+}
+
+function resetMath(problemId) {
+  document.getElementById(`answer-input-${problemId}`).value = '';
+  document.getElementById(`feedback-math-${problemId}`).classList.add('hidden');
+}
+</script>
+
+<style>
+/* Estilos para problemas interactivos */
+
+.interactive-problem {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  background: #fafafa;
+}
+
+.problem-header h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.problem-description {
+  margin: 10px 0 15px 0;
+  color: #555;
+  line-height: 1.6;
+}
+
+.code-editor-container,
+.answer-input-container {
+  margin: 15px 0;
+}
+
+.code-editor-container label,
+.answer-input-container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.code-editor-input,
+.answer-input {
+  width: 100%;
+  padding: 12px;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: white;
+}
+
+.code-editor-input {
+  height: 180px;
+  resize: vertical;
+}
+
+.answer-input {
+  max-width: 400px;
+}
+
+.code-editor-input:focus,
+.answer-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+
+.problem-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  align-items: center;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: #0066cc;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0052a3;
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.loading {
+  color: #666;
+  font-size: 14px;
+}
+
+.loading.hidden {
+  display: none;
+}
+
+.feedback-container {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  background: white;
+}
+
+.feedback-container.hidden {
+  display: none;
+}
+
+.feedback-status {
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.feedback-status.correct {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.feedback-status.incorrect {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.feedback-status.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.feedback-message {
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 4px solid #0066cc;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+}
+
+.feedback-output {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  max-height: 200px;
+  overflow: auto;
+  color: #333;
+  line-height: 1.4;
+}
+</style>

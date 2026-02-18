@@ -1,0 +1,125 @@
+<!-- Math Answer Submission Component -->
+<div id="math-problem-{id}" class="interactive-problem math-submission-problem">
+  <div class="problem-header">
+    <h4>{title}</h4>
+  </div>
+  
+  <div class="problem-description">
+    {description}
+  </div>
+  
+  <div class="answer-input-container">
+    <label for="answer-input-{id}">Your Answer:</label>
+    <input type="text" id="answer-input-{id}" class="answer-input" placeholder="Enter your answer (number or expression)" value="">
+  </div>
+  
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitMath('{id}')">Check Answer</button>
+    <button class="btn btn-secondary" onclick="resetMath('{id}')">Clear</button>
+    <span id="loading-math-{id}" class="loading hidden">Checking...</span>
+  </div>
+  
+  <div id="feedback-math-{id}" class="feedback-container hidden">
+    <div id="feedback-status-math-{id}" class="feedback-status"></div>
+    <div id="feedback-message-math-{id}" class="feedback-message"></div>
+  </div>
+</div>
+
+<style>
+.answer-input-container {
+  margin: 15px 0;
+}
+
+.answer-input-container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.answer-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Monaco', 'Courier New', monospace;
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+}
+</style>
+
+<script>
+async function submitMath(problemId) {
+  const answerInput = document.getElementById(`answer-input-${problemId}`);
+  const feedbackDiv = document.getElementById(`feedback-math-${problemId}`);
+  const statusDiv = document.getElementById(`feedback-status-math-${problemId}`);
+  const messageDiv = document.getElementById(`feedback-message-math-${problemId}`);
+  const loadingSpan = document.getElementById(`loading-math-${problemId}`);
+  
+  const answer = answerInput.value.trim();
+  
+  if (!answer) {
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '⚠ Please enter an answer';
+    feedbackDiv.classList.remove('hidden');
+    return;
+  }
+  
+  loadingSpan.classList.remove('hidden');
+  feedbackDiv.classList.add('hidden');
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/submit/math`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        problem_id: problemId,
+        answer: answer,
+        user_id: null
+      })
+    });
+    
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
+    
+    const result = await response.json();
+    
+    feedbackDiv.classList.remove('hidden');
+    
+    if (result.is_correct) {
+      statusDiv.className = 'feedback-status correct';
+      statusDiv.textContent = '✓ Correct!';
+    } else {
+      statusDiv.className = 'feedback-status incorrect';
+      statusDiv.textContent = '✗ Incorrect';
+    }
+    
+    messageDiv.textContent = result.feedback || 'No feedback';
+    
+  } catch (error) {
+    feedbackDiv.classList.remove('hidden');
+    statusDiv.className = 'feedback-status error';
+    statusDiv.textContent = '✗ Error';
+    messageDiv.textContent = `Error: ${error.message}`;
+  } finally {
+    loadingSpan.classList.add('hidden');
+  }
+}
+
+function resetMath(problemId) {
+  document.getElementById(`answer-input-${problemId}`).value = '';
+  document.getElementById(`feedback-math-${problemId}`).classList.add('hidden');
+}
+</script>
