@@ -1,12 +1,11 @@
 ---
-title: Operaciones en $\mathbb{R}^2$
+title: Operaciones en R2
 format:
   html:
     theme: cosmo
     css: styles.css
-filters:
-  - pyodide
 ---
+
 ## Clase de Álgebra Lineal: Operaciones en $\mathbb{R}^2$
 
 En esta clase, vamos a repasar los conceptos fundamentales de los vectores en $\mathbb{R}^2$, la suma de vectores, la multiplicación por escalar, las normas y la proyección de un vector sobre otro.
@@ -115,7 +114,7 @@ Las operaciones de suma de vectores y multiplicación por escalar en $\mathbb{R}
 
 La **norma** de un vector se refiere a la “longitud” o “magnitud” de dicho vector. Existen varias normas, pero la más común en $\mathbb{R}^2$ es la norma Euclidiana.
 
-###  Norma Euclidiana ($\|\cdot\|_2$), llamada norma $L_2$
+### Norma Euclidiana ($\lVert\cdot\rVert_2$), llamada norma $L_2$
 Para un vector $\mathbf{v}=(v_1,v_2)$, la norma euclidiana se define como:
 $$
 \|\mathbf{v}\|_2=\sqrt{v_1^2+v_2^2}.

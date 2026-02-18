@@ -37,7 +37,7 @@ donde $\alpha_1, \alpha_2, \alpha_3$ son números reales. Ademas, el conjunto ge
 Vamos a estudiar el conjunto generado por el vector $\mathbf{v} = (1, 2)$ en $\mathbb{R}^2$. Lo primero que vamos a estudiar es el conjunto de todas las combinaciones lineales de $\mathbf{v}$, es decir, el conjunto de todos los vectores que se pueden obtener multiplicando $\mathbf{v}$ por un número real. Para ello vamos a graficar el vector $\mathbf{v}$ y luego multiplicamos a este vector por un número real $c$ y graficamos el vector resultante. Como lo vemos en la siguiente figura el conjunto de todas las combinaciones lineales de $\mathbf{v}$ es una recta de color negro que pasa por el origen y tiene dirección $\mathbf{v}$.
 
 
-![](span_animation.gif){width=50%}
+![](../assets/span_animation.gif){width=50%}
 
 
 ## Ejemplo 2
@@ -63,7 +63,7 @@ Aquí nos surgen varias preguntas que gráficamente podríamos resolver como
 
 Ahora supongamos que tenemos dos vectores  no nulos en $\mathbb{R}^2$, llamados $\mathbf{v}_1=(2,1)$ y $\mathbf{v}_2=(1,2)$. Vamos a estudiar el conjunto de todas las combinaciones lineales de estos dos vectores. Para ello vamos a graficar los vectores $\mathbf{v}_1$ y $\mathbf{v}_2$ y luego multiplicamos a estos vectores por dos números reales $c_1$ y $c_2$ y graficamos el vector resultante. Como lo vemos en la siguiente figura el conjunto de todas las combinaciones lineales de $\mathbf{v}_1$ y $\mathbf{v}_2$ es un plano de color
 
-![](animation_spiral.gif){width=50%}
+![](../assets/animation_spiral.gif){width=50%}
 
 
 Note que en este caso podemos ver que el espacio generado por todos los vectores es $\mathbb{R}^2$.

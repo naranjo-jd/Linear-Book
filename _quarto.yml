@@ -10,57 +10,57 @@ website:
         href: index.qmd
       - section: "Plano"
         contents:
-          - href: section0.qmd
+          - href: sections/section0.qmd
             text: Acerca de
-          - href: section1.qmd
+          - href: sections/section1.qmd
             text: Sección 1
-          - href: section2.qmd
+          - href: sections/section2.qmd
             text: Rectas
-          - href: section3.qmd
+          - href: sections/section3.qmd
             text: Independencia lineal
       - section:  Matrices 2 x  2
         contents:
-          - href: section4.qmd
+          - href: sections/section4.qmd
             text: Matrices
-          - href: section5.qmd
+          - href: sections/section5.qmd
             text: Solución de sistema de ecuaciones
-          - href: section6.qmd
+          - href: sections/section6.qmd
             text: Trabajo computacional
-          - href: section9.qmd
+          - href: sections/section9.qmd
             text: Autovalores y autovectores
       - section: Matrices N x N
         contents:
-          - href: section10.qmd
+          - href: sections/section10.qmd
             text: Matrices
-          - href: section11.qmd
+          - href: sections/section11.qmd
             text: Determinantes
-          - href: section11.qmd
+          - href: sections/section11.qmd
             text: Determinantes 2
       - section: Transformaciones
         contents:
-          - href: section12.qmd
+          - href: sections/section12.qmd
             text: Vectores en R
       - section: "Talleres"
         contents:
-          - href: taller1.qmd
+          - href: talleres/taller1.qmd
             text: Taller 1
-          - href: taller2.qmd
+          - href: talleres/taller2.qmd
             text: Taller 2
-          - href: taller3.qmd
+          - href: talleres/taller3.qmd
             text: Taller 3 (matrices)
-          - href: taller4.qmd
+          - href: talleres/taller4.qmd
             text: Taller 4 (Valores propios)
-          - href: taller5.qmd
+          - href: talleres/taller5.qmd
             text: Taller 5 (Valores propios)
-          - href: taller6.qmd
+          - href: talleres/taller6.qmd
             text: Taller resumen 
-          - href: taller7.qmd
+          - href: talleres/taller7.qmd
             text: Taller Operaciones con matrices n x n
-          - href: taller8.qmd
+          - href: talleres/taller8.qmd
             text: Vectores y matrices 
-          - href: taller9.qmd
+          - href: talleres/taller9.qmd
             text: Vectores y matrices II
-          - href: taller10.qmd
+          - href: talleres/taller10.qmd
             text: Subespacios vectoriales
 format:
   html:
