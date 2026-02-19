@@ -34,8 +34,6 @@ website:
             text: Matrices
           - href: sections/section11.qmd
             text: Determinantes
-          - href: sections/section11.qmd
-            text: Determinantes 2
       - section: Transformaciones
         contents:
           - href: sections/section12.qmd

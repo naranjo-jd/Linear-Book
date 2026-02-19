@@ -112,11 +112,11 @@ async def submit_multiple_choice(
     if problem.problem_type != "multiple_choice":
         raise HTTPException(status_code=400, detail="This problem is not a multiple choice problem")
     
-    # For now, assume correct_answer stores the index of correct option
+    # correct_answer almacena el índice (0-based) de la opción correcta
     try:
         correct_option = int(problem.correct_answer)
         is_correct = submission.selected_option == correct_option
-    except:
+    except (ValueError, TypeError):
         is_correct = False
     
     feedback = problem.explanation if is_correct else "Incorrect. " + (problem.explanation or "")

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Taller Interactivo — Demo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": ["f", "/", "s"],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos",
+    "search-copy-link-title": "Copiar enlace",
+    "search-hide-matches-text": "Ocultar coincidencias",
+    "search-more-match-text": "más coincidencia",
+    "search-more-matches-text": "más coincidencias",
+    "search-clear-button-title": "Limpiar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Buscar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+<script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) { window.MathJax.typeset([el]); }
+};
+window.Quarto = { typesetMath };
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+<header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button"
+        data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar"
+        aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="./taller1.html">Talleres</a></li>
+          <li class="breadcrumb-item"><a href="./taller-interactive-demo.html">Taller Interactivo</a></li>
+        </ol>
+      </nav>
+      <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse"
+        data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar"
+        aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"></a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search"
+        onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+
+<!-- ── SIDEBAR ── -->
+<nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+  <div class="mt-2 flex-shrink-0 align-items-center">
+    <div class="sidebar-search"><div id="quarto-search" class="" title="Search"></div></div>
+  </div>
+  <div class="sidebar-menu-container">
+  <ul class="list-unstyled mt-1">
+
+    <li class="sidebar-item">
+      <div class="sidebar-item-container">
+        <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Contenido</span></a>
+      </div>
+    </li>
+
+    <!-- Plano -->
+    <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#sb-plano" role="navigation" aria-expanded="true"><span class="menu-text">Plano</span></a>
+        <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#sb-plano" role="navigation" aria-expanded="true" aria-label="Toggle section"><i class="bi bi-chevron-right ms-2"></i></a>
+      </div>
+      <ul id="sb-plano" class="collapse list-unstyled sidebar-section depth1 show">
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section0.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Acerca de</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section1.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Sección 1</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section2.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Rectas</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section3.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Independencia lineal</span></a></div></li>
+      </ul>
+    </li>
+
+    <!-- Matrices 2x2 -->
+    <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#sb-mat2" role="navigation" aria-expanded="true"><span class="menu-text">Matrices 2 × 2</span></a>
+        <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#sb-mat2" role="navigation" aria-expanded="true" aria-label="Toggle section"><i class="bi bi-chevron-right ms-2"></i></a>
+      </div>
+      <ul id="sb-mat2" class="collapse list-unstyled sidebar-section depth1 show">
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section4.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Matrices</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section5.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Solución de sistema de ecuaciones</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section6.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Trabajo computacional</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section9.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Autovalores y autovectores</span></a></div></li>
+      </ul>
+    </li>
+
+    <!-- Matrices NxN -->
+    <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#sb-matn" role="navigation" aria-expanded="true"><span class="menu-text">Matrices N × N</span></a>
+        <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#sb-matn" role="navigation" aria-expanded="true" aria-label="Toggle section"><i class="bi bi-chevron-right ms-2"></i></a>
+      </div>
+      <ul id="sb-matn" class="collapse list-unstyled sidebar-section depth1 show">
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section10.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Matrices</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section11.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Determinantes</span></a></div></li>
+      </ul>
+    </li>
+
+    <!-- Transformaciones -->
+    <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#sb-trans" role="navigation" aria-expanded="true"><span class="menu-text">Transformaciones</span></a>
+        <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#sb-trans" role="navigation" aria-expanded="true" aria-label="Toggle section"><i class="bi bi-chevron-right ms-2"></i></a>
+      </div>
+      <ul id="sb-trans" class="collapse list-unstyled sidebar-section depth1 show">
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./section12.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Vectores en ℝ</span></a></div></li>
+      </ul>
+    </li>
+
+    <!-- Talleres -->
+    <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container">
+        <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#sb-talleres" role="navigation" aria-expanded="true"><span class="menu-text">Talleres</span></a>
+        <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#sb-talleres" role="navigation" aria-expanded="true" aria-label="Toggle section"><i class="bi bi-chevron-right ms-2"></i></a>
+      </div>
+      <ul id="sb-talleres" class="collapse list-unstyled sidebar-section depth1 show">
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller-interactive-demo.html" class="sidebar-item-text sidebar-link active"><span class="menu-text">Taller Interactivo</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller1.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller 1</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller2.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller 2</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller3.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller 3 (matrices)</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller4.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller 4 (Valores propios)</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller5.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller 5 (Valores propios)</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller6.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller resumen</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller7.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Taller Operaciones con matrices n × n</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller8.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Vectores y matrices</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller9.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Vectores y matrices II</span></a></div></li>
+        <li class="sidebar-item"><div class="sidebar-item-container"><a href="./taller10.html" class="sidebar-item-text sidebar-link"><span class="menu-text">Subespacios vectoriales</span></a></div></li>
+      </ul>
+    </li>
+
+  </ul>
+  </div>
+</nav>
+
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+
+<!-- ── TOC ── -->
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+    <ul>
+      <li><a href="#problema-1" class="nav-link active">Problema 1 · Suma de vector</a></li>
+      <li><a href="#problema-2" class="nav-link">Problema 2 · Producto punto</a></li>
+      <li><a href="#problema-3" class="nav-link">Problema 3 · Determinante</a></li>
+      <li><a href="#como-funciona" class="nav-link">¿Cómo funciona?</a></li>
+    </ul>
+  </nav>
+</div>
+
+<!-- ── MAIN ── -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+  <nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="./taller1.html">Talleres</a></li>
+      <li class="breadcrumb-item"><a href="./taller-interactive-demo.html">Taller Interactivo</a></li>
+    </ol>
+  </nav>
+  <div class="quarto-title">
+    <h1 class="title">Taller Interactivo — Demo</h1>
+  </div>
+</header>
+
+<div class="callout callout-style-default callout-note callout-titled">
+  <div class="callout-header d-flex align-content-center">
+    <div class="callout-icon-container"><i class="callout-icon"></i></div>
+    <div class="callout-title-container flex-fill"><strong>Requisito</strong></div>
+  </div>
+  <div class="callout-body-container callout-body">
+    <p>El servidor backend debe estar activo en <code>http://localhost:8000</code>.
+    Cómo arrancarlo:</p>
+    <pre><code>cd backend
+source venv/bin/activate
+python3 run.py</code></pre>
+  </div>
+</div>
+
+<hr>
+
+<!-- ── PROBLEMA 1 ── -->
+<h2 id="problema-1">Problema 1 · Suma de componentes de un vector</h2>
+
+<p>Crea un vector NumPy con los valores <span class="math inline">\([1,\ 2,\ 3]\)</span> e imprime la <strong>suma de sus componentes</strong>.</p>
+<p><em>Pista:</em> usa <code>np.array(...)</code> y el método <code>.sum()</code>.</p>
+
+<div id="code-problem-numpy_sum" class="interactive-problem">
+  <div class="problem-header">
+    <span class="problem-badge">⌨ Código Python</span>
+    <h4>Suma de componentes — NumPy</h4>
+  </div>
+  <div class="problem-description">
+    Escribe código Python que:<br>
+    1. Importe NumPy como <code>np</code>.<br>
+    2. Cree el vector <code>v = [1, 2, 3]</code>.<br>
+    3. Imprima la suma de sus componentes (resultado esperado: <strong>6</strong>).
+  </div>
+  <div class="code-editor-container">
+    <label for="code-input-numpy_sum">Tu solución</label>
+    <textarea id="code-input-numpy_sum" class="code-editor-input" spellcheck="false">import numpy as np
+v = np.array([1, 2, 3])
+print(v.sum())</textarea>
+  </div>
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitCode('numpy_sum')">▶ Ejecutar y verificar</button>
+    <button class="btn btn-secondary" onclick="resetCodeDemo('numpy_sum')">↺ Restablecer</button>
+    <span id="loading-numpy_sum" class="loading hidden">Ejecutando…</span>
+  </div>
+  <div id="feedback-numpy_sum" class="feedback-container hidden">
+    <div id="feedback-status-numpy_sum"  class="feedback-status"></div>
+    <div id="feedback-message-numpy_sum" class="feedback-message"></div>
+    <div id="feedback-output-numpy_sum"  class="feedback-output"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ── PROBLEMA 2 ── -->
+<h2 id="problema-2">Problema 2 · Producto punto</h2>
+
+<p>Calcula el <strong>producto punto</strong> de los vectores <span class="math inline">\(\mathbf{u} = (1,\ 2)\)</span> y <span class="math inline">\(\mathbf{v} = (3,\ 4)\)</span>.</p>
+<p><span class="math display">\[\mathbf{u} \cdot \mathbf{v} = u_1 v_1 + u_2 v_2 = 1{\times}3 + 2{\times}4\]</span></p>
+
+<div id="math-problem-dot_product" class="interactive-problem">
+  <div class="problem-header">
+    <span class="problem-badge">∑ Respuesta matemática</span>
+    <h4>Producto punto de dos vectores</h4>
+  </div>
+  <div class="problem-description">
+    Escribe el resultado numérico del producto punto <strong>u·v</strong>
+    donde <strong>u = (1, 2)</strong> y <strong>v = (3, 4)</strong>.
+  </div>
+  <div class="answer-input-container">
+    <label for="answer-input-dot_product">Tu respuesta</label>
+    <input
+      type="text"
+      id="answer-input-dot_product"
+      class="answer-input"
+      placeholder="Escribe el resultado aquí…"
+      onkeydown="if(event.key==='Enter') submitMath('dot_product')"
+    >
+  </div>
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitMath('dot_product')">✓ Verificar respuesta</button>
+    <button class="btn btn-secondary" onclick="resetMath('dot_product')">↺ Limpiar</button>
+    <span id="loading-math-dot_product" class="loading hidden">Verificando…</span>
+  </div>
+  <div id="feedback-math-dot_product" class="feedback-container hidden">
+    <div id="feedback-status-math-dot_product"  class="feedback-status"></div>
+    <div id="feedback-message-math-dot_product" class="feedback-message"></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ── PROBLEMA 3 ── -->
+<h2 id="problema-3">Problema 3 · Determinante de una matriz</h2>
+
+<p>Calcula el <strong>determinante</strong> de la matriz:</p>
+<p><span class="math display">\[M = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}\]</span></p>
+<p><em>Pista:</em> usa <code>np.linalg.det(M)</code>. El resultado debe ser <strong>−2</strong>.</p>
+
+<div id="code-problem-matrix_det" class="interactive-problem">
+  <div class="problem-header">
+    <span class="problem-badge">⌨ Código Python</span>
+    <h4>Determinante de una matriz 2×2</h4>
+  </div>
+  <div class="problem-description">
+    Usa NumPy para crear la matriz <strong>M = [[1, 2], [3, 4]]</strong>
+    y calcula e imprime su determinante.<br>
+    Resultado esperado: <strong>−2</strong>.
+  </div>
+  <div class="code-editor-container">
+    <label for="code-input-matrix_det">Tu solución</label>
+    <textarea id="code-input-matrix_det" class="code-editor-input" spellcheck="false">import numpy as np
+M = np.array([[1, 2], [3, 4]])
+det = np.linalg.det(M)
+print(round(det))</textarea>
+  </div>
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitCode('matrix_det')">▶ Ejecutar y verificar</button>
+    <button class="btn btn-secondary" onclick="resetCodeDemo('matrix_det')">↺ Restablecer</button>
+    <span id="loading-matrix_det" class="loading hidden">Ejecutando…</span>
+  </div>
+  <div id="feedback-matrix_det" class="feedback-container hidden">
+    <div id="feedback-status-matrix_det"  class="feedback-status"></div>
+    <div id="feedback-message-matrix_det" class="feedback-message"></div>
+    <div id="feedback-output-matrix_det"  class="feedback-output"></div>
+  </div>
+</div>
+
+<hr>
+
+<h2 id="como-funciona">¿Cómo funciona?</h2>
+<ol>
+  <li><strong>Escribe tu solución</strong> en el editor o en el campo de respuesta.</li>
+  <li><strong>Haz clic en "Ejecutar y verificar"</strong> — el código se envía al servidor y se evalúa.</li>
+  <li><strong>Recibe retroalimentación inmediata</strong>: verás si tu resultado es correcto y qué se esperaba.</li>
+</ol>
+
+<!-- ── JS ── -->
+<script>
+const API_BASE_URL = 'http://localhost:8000/api/v1';
+
+function _showStatus(el, type, text) {
+  el.className = 'feedback-status ' + type;
+  el.textContent = text;
+}
+
+/* ── Código ── */
+async function submitCode(problemId) {
+  var textarea  = document.getElementById('code-input-' + problemId);
+  var feedback  = document.getElementById('feedback-' + problemId);
+  var statusEl  = document.getElementById('feedback-status-' + problemId);
+  var messageEl = document.getElementById('feedback-message-' + problemId);
+  var outputEl  = document.getElementById('feedback-output-' + problemId);
+  var loadingEl = document.getElementById('loading-' + problemId);
+  var submitBtn = feedback.closest('.interactive-problem').querySelector('.btn-primary');
+
+  var code = textarea.value.trim();
+
+  if (!code) {
+    _showStatus(statusEl, 'error', '⚠ Por favor escribe tu código antes de enviar.');
+    messageEl.textContent = '';
+    outputEl.textContent  = '';
+    feedback.classList.remove('hidden');
+    return;
+  }
+
+  loadingEl.classList.remove('hidden');
+  feedback.classList.add('hidden');
+  submitBtn.disabled = true;
+
+  try {
+    var res = await fetch(API_BASE_URL + '/submit/code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ problem_id: problemId, code: code, user_id: null }),
+    });
+
+    if (!res.ok) {
+      var detail = await res.json().catch(function() { return {}; });
+      throw new Error(detail.detail || 'Error del servidor (' + res.status + ')');
+    }
+
+    var data = await res.json();
+    _showStatus(statusEl,
+      data.is_correct ? 'correct' : 'incorrect',
+      data.is_correct ? '✓ ¡Correcto!' : '✗ Respuesta incorrecta');
+    messageEl.textContent = data.feedback || '';
+
+    if (data.execution_output) {
+      outputEl.textContent = '$ Salida:\n' + data.execution_output;
+    } else if (data.execution_error) {
+      outputEl.textContent = '$ Error:\n' + data.execution_error;
+    } else {
+      outputEl.textContent = '';
+    }
+
+  } catch (err) {
+    _showStatus(statusEl, 'error', '⚠ No se pudo conectar al servidor');
+    messageEl.textContent = err.message + '\n\nAsegúrate de que el backend está corriendo en http://localhost:8000';
+    outputEl.textContent = '';
+  } finally {
+    loadingEl.classList.add('hidden');
+    submitBtn.disabled = false;
+    feedback.classList.remove('hidden');
+  }
+}
+
+var _initialCode = {};
+document.querySelectorAll('.code-editor-input').forEach(function(ta) {
+  var id = ta.id.replace('code-input-', '');
+  _initialCode[id] = ta.value;
+});
+
+function resetCodeDemo(problemId) {
+  document.getElementById('code-input-' + problemId).value = _initialCode[problemId] || '';
+  document.getElementById('feedback-' + problemId).classList.add('hidden');
+}
+
+/* ── Matemática ── */
+async function submitMath(problemId) {
+  var input     = document.getElementById('answer-input-' + problemId);
+  var feedback  = document.getElementById('feedback-math-' + problemId);
+  var statusEl  = document.getElementById('feedback-status-math-' + problemId);
+  var messageEl = document.getElementById('feedback-message-math-' + problemId);
+  var loadingEl = document.getElementById('loading-math-' + problemId);
+  var submitBtn = feedback.closest('.interactive-problem').querySelector('.btn-primary');
+
+  var answer = input.value.trim();
+
+  if (!answer) {
+    _showStatus(statusEl, 'error', '⚠ Por favor escribe tu respuesta antes de verificar.');
+    messageEl.textContent = '';
+    feedback.classList.remove('hidden');
+    return;
+  }
+
+  loadingEl.classList.remove('hidden');
+  feedback.classList.add('hidden');
+  submitBtn.disabled = true;
+
+  try {
+    var res = await fetch(API_BASE_URL + '/submit/math', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ problem_id: problemId, answer: answer, user_id: null }),
+    });
+
+    if (!res.ok) {
+      var detail = await res.json().catch(function() { return {}; });
+      throw new Error(detail.detail || 'Error del servidor (' + res.status + ')');
+    }
+
+    var data = await res.json();
+    _showStatus(statusEl,
+      data.is_correct ? 'correct' : 'incorrect',
+      data.is_correct ? '✓ ¡Correcto!' : '✗ Respuesta incorrecta');
+    messageEl.textContent = data.feedback || '';
+
+  } catch (err) {
+    _showStatus(statusEl, 'error', '⚠ No se pudo conectar al servidor');
+    messageEl.textContent = err.message;
+  } finally {
+    loadingEl.classList.add('hidden');
+    submitBtn.disabled = false;
+    feedback.classList.remove('hidden');
+  }
+}
+
+function resetMath(problemId) {
+  document.getElementById('answer-input-' + problemId).value = '';
+  document.getElementById('feedback-math-' + problemId).classList.add('hidden');
+}
+</script>
+
+</main>
+</div><!-- /content -->
+
+</body></html>

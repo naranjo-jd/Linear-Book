@@ -1,1 +1,525 @@
-/* css styles */
+/* =========================================================
+   Linear-Book — Sistema de estilos
+   Álgebra Lineal Interactiva
+   ========================================================= */
+
+/* ── Variables de diseño ─────────────────────────────────── */
+:root {
+  --primary:        #4f46e5;   /* índigo */
+  --primary-dark:   #3730a3;
+  --primary-light:  #818cf8;
+  --primary-bg:     #eef2ff;
+
+  --success:        #059669;
+  --success-bg:     #d1fae5;
+  --success-border: #6ee7b7;
+
+  --error:          #dc2626;
+  --error-bg:       #fee2e2;
+  --error-border:   #fca5a5;
+
+  --warning:        #d97706;
+  --warning-bg:     #fef3c7;
+  --warning-border: #fcd34d;
+
+  --neutral-50:  #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Courier New', monospace;
+
+  --radius-sm: 6px;
+  --radius:    10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+  --shadow:    0 4px 12px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 28px rgba(0,0,0,.12);
+
+  --transition: 0.2s ease;
+}
+
+/* ── Importar fuente ──────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ── Layout general del sitio ────────────────────────────── */
+body {
+  font-family: var(--font-sans) !important;
+  color: var(--neutral-800);
+  background: var(--neutral-50);
+  line-height: 1.7;
+}
+
+/* Sidebar */
+#quarto-sidebar {
+  background: white !important;
+  border-right: 1px solid var(--neutral-200) !important;
+}
+
+#quarto-sidebar .sidebar-title {
+  font-weight: 700;
+  color: var(--primary) !important;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+/* Navegación de la sidebar */
+.sidebar-item .sidebar-item-text {
+  color: var(--neutral-700);
+  font-size: 0.9rem;
+  transition: color var(--transition);
+}
+
+.sidebar-item:hover .sidebar-item-text {
+  color: var(--primary);
+}
+
+.sidebar-item.active .sidebar-item-text {
+  color: var(--primary) !important;
+  font-weight: 600;
+}
+
+/* ── Contenido principal ──────────────────────────────────── */
+#quarto-content main {
+  padding: 2rem 2.5rem;
+  max-width: 900px;
+}
+
+/* ── Tipografía ───────────────────────────────────────────── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-sans) !important;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--neutral-900);
+}
+
+h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+h2 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--neutral-200);
+  color: var(--neutral-800);
+}
+h3 { font-size: 1.15rem; color: var(--neutral-700); }
+h4 { font-size: 1rem; color: var(--neutral-700); }
+
+p { color: var(--neutral-700); margin-bottom: 1rem; }
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+a:hover { text-decoration: underline; color: var(--primary-dark); }
+
+/* ── Código inline ────────────────────────────────────────── */
+code:not(.sourceCode) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--primary-bg);
+  color: var(--primary-dark);
+  padding: 0.15em 0.45em;
+  border-radius: var(--radius-sm);
+  border: 1px solid #c7d2fe;
+}
+
+/* ── Bloques de código ────────────────────────────────────── */
+.sourceCode {
+  border-radius: var(--radius) !important;
+  border: 1px solid var(--neutral-200) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+pre.sourceCode {
+  margin: 0 !important;
+  background: var(--neutral-900) !important;
+  border-radius: var(--radius) !important;
+  padding: 1.2rem 1.4rem !important;
+}
+
+pre.sourceCode code {
+  font-family: var(--font-mono) !important;
+  font-size: 0.88rem !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #e2e8f0;
+}
+
+/* ── Callouts (admonitions) ───────────────────────────────── */
+.callout {
+  border-radius: var(--radius) !important;
+  border: none !important;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Tablas ───────────────────────────────────────────────── */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+thead th {
+  background: var(--primary-bg);
+  color: var(--primary-dark);
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid #c7d2fe;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+tbody tr:hover td {
+  background: var(--neutral-50);
+}
+
+/* ── Math (MathJax) ───────────────────────────────────────── */
+.math {
+  font-size: 1.05em;
+}
+
+/* ── TOC ──────────────────────────────────────────────────── */
+#TOC {
+  border-left: 3px solid var(--primary-bg) !important;
+  padding-left: 1rem;
+}
+
+#TOC a {
+  color: var(--neutral-600);
+  font-size: 0.87rem;
+}
+
+#TOC a:hover, #TOC a.active {
+  color: var(--primary);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  COMPONENTES INTERACTIVOS                                  */
+/* ─────────────────────────────────────────────────────────── */
+
+/* ── Tarjeta base de problema ─────────────────────────────── */
+.interactive-problem {
+  background: white;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem 2rem;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.interactive-problem::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+}
+
+.interactive-problem:hover {
+  box-shadow: var(--shadow);
+}
+
+/* ── Encabezado del problema ──────────────────────────────── */
+.problem-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.problem-header h4 {
+  margin: 0 !important;
+  font-size: 1.05rem;
+  color: var(--neutral-800);
+  font-weight: 700;
+}
+
+.problem-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--primary-bg);
+  color: var(--primary-dark);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* ── Descripción ──────────────────────────────────────────── */
+.problem-description {
+  color: var(--neutral-600);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+/* ── Editor de código ─────────────────────────────────────── */
+.code-editor-container {
+  margin: 1rem 0;
+}
+
+.code-editor-container label,
+.answer-input-container label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--neutral-500);
+  margin-bottom: 0.5rem;
+}
+
+.code-editor-input {
+  width: 100%;
+  min-height: 140px;
+  padding: 1rem 1.1rem;
+  font-family: var(--font-mono) !important;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  border: 1.5px solid var(--neutral-200);
+  border-radius: var(--radius);
+  background: var(--neutral-900);
+  color: #e2e8f0;
+  box-sizing: border-box;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  tab-size: 4;
+}
+
+.code-editor-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.code-editor-input::placeholder {
+  color: var(--neutral-500);
+}
+
+/* ── Input matemático ─────────────────────────────────────── */
+.answer-input-container {
+  margin: 1rem 0;
+}
+
+.answer-input {
+  width: 100%;
+  max-width: 380px;
+  padding: 0.75rem 1rem;
+  font-size: 1.05rem;
+  font-family: var(--font-mono);
+  border: 1.5px solid var(--neutral-200);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+  background: white;
+  color: var(--neutral-800);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.answer-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* ── Controles de problema ────────────────────────────────── */
+.problem-controls {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── Botones ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1.25rem;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  transition: all var(--transition);
+  user-select: none;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: var(--neutral-100);
+  color: var(--neutral-600);
+  border: 1px solid var(--neutral-200);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+/* ── Indicador de carga ───────────────────────────────────── */
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--neutral-500);
+  font-weight: 500;
+}
+
+.loading::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--neutral-300);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.loading.hidden { display: none; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Contenedor de feedback ───────────────────────────────── */
+.feedback-container {
+  margin-top: 1.2rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  animation: slideDown 0.25s ease;
+}
+
+.feedback-container.hidden { display: none; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Barra de estado de feedback ──────────────────────────── */
+.feedback-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.feedback-status.correct {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
+  border-bottom: none;
+}
+
+.feedback-status.incorrect {
+  background: var(--error-bg);
+  color: var(--error);
+  border: 1px solid var(--error-border);
+  border-bottom: none;
+}
+
+.feedback-status.error {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning-border);
+  border-bottom: none;
+}
+
+/* ── Mensaje de feedback ──────────────────────────────────── */
+.feedback-message {
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  color: var(--neutral-700);
+  background: white;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+  border: 1px solid var(--neutral-200);
+  border-top: none;
+}
+
+/* ── Output de ejecución ──────────────────────────────────── */
+.feedback-output {
+  padding: 0.85rem 1rem;
+  background: var(--neutral-900);
+  color: #a5f3fc;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.5;
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+/* ─────────────────────────────────────────────────────────── */
+/*  RESPONSIVE                                                 */
+/* ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #quarto-content main {
+    padding: 1.25rem;
+  }
+
+  .interactive-problem {
+    padding: 1.25rem;
+  }
+
+  .answer-input {
+    max-width: 100%;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.2rem; }
+}

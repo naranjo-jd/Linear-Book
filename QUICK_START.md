@@ -1,260 +1,363 @@
-# Quick Start Guide: Interactive Linear Algebra Book
+# Guía de arranque — Linear-Book
 
-## 🎯 What You Have
+Plataforma interactiva de Álgebra Lineal para estudiantes.
+Arquitectura: **FastAPI** (backend) + **HTML estático** (frontend).
 
-A complete interactive learning platform for linear algebra with:
-- ✅ Backend API for solution verification
-- ✅ Frontend components for problem submission
-- ✅ Demo workshop with working examples
-- ✅ Support for code execution, math answers, and multiple choice
+---
 
-## 🚀 Getting Started (Local Development)
+## Requisitos previos
 
-### 1. Start the Backend API
+| Herramienta | Versión mínima | Verificar |
+|-------------|---------------|-----------|
+| Python      | 3.9+          | `python3 --version` |
+| pip         | cualquiera    | `pip --version` |
+| Quarto      | 1.5+ (opcional, para re-renderizar `.qmd`) | `quarto --version` |
+
+---
+
+## 1. Backend (API de calificación)
+
+El backend es una API FastAPI que ejecuta y califica el código y las respuestas matemáticas de los estudiantes.
+
+### Primera vez
 
 ```bash
-cd backend
+cd Linear-Book/backend
+
+# Crear entorno virtual
 python3 -m venv venv
-source venv/bin/activate
+
+# Activar entorno
+source venv/bin/activate          # macOS / Linux
+# venv\Scripts\activate           # Windows
+
+# Instalar dependencias
 pip install -r requirements.txt
+
+# Inicializar la base de datos
+python3 -c "from app.db import init_db; init_db()"
+
+# Cargar los problemas de la demo
+python3 -c "
+import sqlite3, json
+conn = sqlite3.connect('test.db')
+cur  = conn.cursor()
+problems = [
+    ('taller-demo', 'numpy_sum',   'Suma de vector NumPy',        'code', '6',  None, 0.01),
+    ('taller-demo', 'dot_product', 'Producto punto (1,2)·(3,4)', 'math', None, '11', 0.01),
+    ('taller-demo', 'matrix_det',  'Determinante de matriz 2×2', 'code', '-2', None, 0.01),
+]
+for section, pid, title, ptype, expected, correct, tol in problems:
+    cur.execute(
+        '''INSERT OR REPLACE INTO problems
+           (section, problem_id, title, description, problem_type,
+            expected_output, correct_answer, tolerance)
+           VALUES (?,?,?,?,?,?,?,?)''',
+        (section, pid, title, '', ptype, expected, correct, tol)
+    )
+conn.commit(); conn.close()
+print('Problemas insertados.')
+"
+```
+
+### Arranque diario
+
+```bash
+cd Linear-Book/backend
+source venv/bin/activate
 python3 run.py
 ```
 
-The API will run on: `http://localhost:8000`
-Documentation at: `http://localhost:8000/docs`
+El servidor queda disponible en:
 
-### 2. Test the Demo Workshop
+- API: `http://localhost:8000`
+- Documentación interactiva: `http://localhost:8000/docs`
+- Health check: `http://localhost:8000/api/v1/health`
 
-Open `talleres/taller-interactive-demo.qmd` in your browser or with Quarto:
+> El backend usa **hot-reload**: guarda un archivo `.py` y se reinicia automáticamente.
+
+---
+
+## 2. Frontend (sitio web)
+
+El frontend son archivos HTML estáticos en `docs/`. Se sirven con Python.
+
+### Arrancar el servidor web
 
 ```bash
-quarto render talleres/taller-interactive-demo.qmd
+cd Linear-Book/docs
+python3 -m http.server 4200
 ```
 
-Then open the generated HTML file and:
-1. Write Python code or mathematical answers
-2. Click "Submit" or "Enviar"
-3. See instant feedback
+Abre el navegador en:
 
-### 3. Try the 3 Built-in Examples
+| Página | URL |
+|--------|-----|
+| Índice del curso | `http://localhost:4200/index.html` |
+| **Taller Interactivo (demo)** | `http://localhost:4200/taller-interactive-demo.html` |
+| Taller 1 | `http://localhost:4200/taller1.html` |
+| Taller 2 | `http://localhost:4200/taller2.html` |
 
-**Problem 1: NumPy Vector Sum**
-- Write code to sum a vector [1, 2, 3]
-- Expected output: 6
-- Status: Ready to test
+> **Importante:** el frontend en puerto `4200` y el backend en puerto `8000` deben estar corriendo **al mismo tiempo**.
 
-**Problem 2: Dot Product**  
-- Calculate: (1, 2) · (3, 4)
-- Expected answer: 11
-- Status: Ready to test
+---
 
-**Problem 3: Matrix Determinant**
-- Calculate determinant of [[1,2],[3,4]]
-- Expected output: -2
-- Status: Ready to test
+## 3. Arranque completo (ambos servicios)
 
-## 📋 Project Structure
+Abre **dos terminales** y ejecuta:
 
-```
-lineal_2025_2/
-├── backend/                    # FastAPI server
-│   ├── app/
-│   │   ├── routes/            # API endpoints
-│   │   ├── services/          # Grading logic
-│   │   ├── models.py          # Database models
-│   │   └── config.py          # Settings
-│   ├── run.py                 # Start server
-│   └── requirements.txt
-├── frontend-components/        # Reusable widgets
-│   ├── code-submission.html
-│   └── math-submission.html
-├── talleres/
-│   ├── taller-interactive-demo.qmd    # ← START HERE
-│   ├── taller1.qmd
-│   └── ...
-├── sections/                   # Course content
-│   ├── section0.qmd
-│   └── ...
-└── README.md
+**Terminal 1 — Backend:**
+```bash
+cd Linear-Book/backend
+source venv/bin/activate
+python3 run.py
 ```
 
-## 🔧 Key Files
+**Terminal 2 — Frontend:**
+```bash
+cd Linear-Book/docs
+python3 -m http.server 4200
+```
 
-### Backend
-- `backend/app/routes/submissions.py` - Handles code/math submissions
-- `backend/app/services/grader.py` - Grading logic
-- `backend/app/models.py` - Problem and Submission database models
+Luego abre `http://localhost:4200/taller-interactive-demo.html`.
 
-### Frontend
-- `frontend-components/code-submission.html` - Code problem widget
-- `frontend-components/math-submission.html` - Math problem widget
+---
 
-### Demo
-- `talleres/taller-interactive-demo.qmd` - Complete working example
+## 4. Verificar que todo funciona
 
-## 🛠 Common Tasks
+### Verificar el backend
 
-### Add a New Problem
+```bash
+# Health check
+curl http://localhost:8000/api/v1/health
 
-1. **Create problem in database**:
-```python
+# Enviar código correcto (debe devolver is_correct: true)
+curl -X POST http://localhost:8000/api/v1/submit/code \
+  -H "Content-Type: application/json" \
+  -d '{"problem_id":"numpy_sum","code":"import numpy as np\nv=np.array([1,2,3])\nprint(v.sum())","user_id":null}'
+
+# Verificar respuesta matemática
+curl -X POST http://localhost:8000/api/v1/submit/math \
+  -H "Content-Type: application/json" \
+  -d '{"problem_id":"dot_product","answer":"11","user_id":null}'
+```
+
+### Verificar el frontend
+
+Abre `http://localhost:4200/taller-interactive-demo.html`, escribe código en el Problema 1 y haz clic en **"Ejecutar y verificar"**. Debes ver el feedback verde "¡Correcto!".
+
+---
+
+## 5. Agregar un nuevo problema
+
+### Paso 1 — Registrar el problema en la base de datos
+
+```bash
+cd Linear-Book/backend
+source venv/bin/activate
+python3 -c "
 from app.db import SessionLocal
 from app.models import Problem
 
 db = SessionLocal()
-problem = Problem(
-    section="taller1",
-    problem_id="VF1",
-    title="My Problem",
-    description="Description here",
-    problem_type="code",
-    expected_output="42"
+p = Problem(
+    section     = 'taller1',          # sección a la que pertenece
+    problem_id  = 'mi_problema',       # ID único (sin espacios)
+    title       = 'Mi problema',
+    description = 'Descripción para el estudiante.',
+    problem_type= 'code',              # 'code' | 'math' | 'multiple_choice'
+    expected_output = '42',            # para tipo 'code'
+    # correct_answer  = '42',          # para tipo 'math'
+    tolerance   = 0.01,
 )
-db.add(problem)
-db.commit()
-db.close()
+db.add(p); db.commit(); db.close()
+print('Problema creado.')
+"
 ```
 
-2. **Add to workshop** (copy-paste from taller-interactive-demo.qmd)
+### Paso 2 — Agregar el bloque HTML al taller
 
-3. **Test** by submitting an answer
+Copia uno de los bloques de `docs/taller-interactive-demo.html` y cambia los IDs para que coincidan con el `problem_id` que registraste.
 
-### Convert Existing Workshop to Interactive
-
-1. Open existing `talleres/tallerX.qmd`
-2. Copy problem submission HTML blocks from `taller-interactive-demo.qmd`
-3. Add problem metadata to database
-4. Update problem IDs to match
-5. Test with backend running
-
-### Deploy Backend to Cloud
-
-**Option A: Heroku** (easiest)
-```bash
-# Install Heroku CLI, then:
-cd backend
-heroku create your-app-name
-heroku config:set DATABASE_URL=postgresql://...
-git push heroku main
+**Bloque de código:**
+```html
+<div id="code-problem-mi_problema" class="interactive-problem">
+  <div class="problem-header">
+    <span class="problem-badge">⌨ Código Python</span>
+    <h4>Mi problema</h4>
+  </div>
+  <div class="problem-description">Descripción aquí.</div>
+  <div class="code-editor-container">
+    <label for="code-input-mi_problema">Tu solución</label>
+    <textarea id="code-input-mi_problema" class="code-editor-input">
+# Tu código aquí
+    </textarea>
+  </div>
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitCode('mi_problema')">▶ Ejecutar y verificar</button>
+    <button class="btn btn-secondary" onclick="resetCodeDemo('mi_problema')">↺ Restablecer</button>
+    <span id="loading-mi_problema" class="loading hidden">Ejecutando…</span>
+  </div>
+  <div id="feedback-mi_problema" class="feedback-container hidden">
+    <div id="feedback-status-mi_problema"  class="feedback-status"></div>
+    <div id="feedback-message-mi_problema" class="feedback-message"></div>
+    <div id="feedback-output-mi_problema"  class="feedback-output"></div>
+  </div>
+</div>
 ```
 
-**Option B: Railway.app** (recommended)
-```bash
-# Sign up at railway.app
-# Connect GitHub repo
-# Set start command: python3 run.py
-# Auto-deploys on push
+**Bloque de respuesta matemática:**
+```html
+<div id="math-problem-mi_problema" class="interactive-problem">
+  <div class="problem-header">
+    <span class="problem-badge">∑ Respuesta matemática</span>
+    <h4>Mi problema</h4>
+  </div>
+  <div class="problem-description">Descripción aquí.</div>
+  <div class="answer-input-container">
+    <label for="answer-input-mi_problema">Tu respuesta</label>
+    <input type="text" id="answer-input-mi_problema" class="answer-input"
+      placeholder="Escribe el resultado aquí…"
+      onkeydown="if(event.key==='Enter') submitMath('mi_problema')">
+  </div>
+  <div class="problem-controls">
+    <button class="btn btn-primary" onclick="submitMath('mi_problema')">✓ Verificar respuesta</button>
+    <button class="btn btn-secondary" onclick="resetMath('mi_problema')">↺ Limpiar</button>
+    <span id="loading-math-mi_problema" class="loading hidden">Verificando…</span>
+  </div>
+  <div id="feedback-math-mi_problema" class="feedback-container hidden">
+    <div id="feedback-status-math-mi_problema"  class="feedback-status"></div>
+    <div id="feedback-message-math-mi_problema" class="feedback-message"></div>
+  </div>
+</div>
 ```
-
-**Option C: AWS**
-- Use Elastic Beanstalk or EC2
-- See AWS documentation for FastAPI deployment
-
-## 📖 API Reference
-
-### Submit Code
-```bash
-curl -X POST http://localhost:8000/api/v1/submit/code \
-  -H "Content-Type: application/json" \
-  -d '{
-    "problem_id": "numpy_sum",
-    "code": "import numpy as np\nprint(1+1)"
-  }'
-```
-
-Response:
-```json
-{
-  "submission_id": 1,
-  "problem_id": "numpy_sum",
-  "is_correct": false,
-  "feedback": "Expected: 6\n\nGot: 2",
-  "score": 0.0,
-  "execution_output": "2",
-  "execution_error": null
-}
-```
-
-### Submit Math Answer
-```bash
-curl -X POST http://localhost:8000/api/v1/submit/math \
-  -H "Content-Type: application/json" \
-  -d '{
-    "problem_id": "dot_product",
-    "answer": "11"
-  }'
-```
-
-Response:
-```json
-{
-  "submission_id": 2,
-  "problem_id": "dot_product",
-  "is_correct": true,
-  "feedback": "Correct!",
-  "score": 1.0
-}
-```
-
-## 🐛 Troubleshooting
-
-### "Cannot reach API" error
-- Make sure backend is running: `python3 run.py`
-- Check it's on port 8000: `curl http://localhost:8000/api/v1/health`
-- Check browser console (F12) for errors
-
-### Code submission always fails
-- Backend might have timed out (10 second limit)
-- Code might be too long (5000 char limit)
-- Check backend logs for detailed error
-
-### Database errors
-- SQLite database created automatically in `backend/test.db`
-- Delete it to reset: `rm backend/test.db`
-- Backend will recreate it on next run
-
-## 📚 Next Steps
-
-### Short Term
-1. ✅ Test the demo workshop locally
-2. Deploy backend to production
-3. Update API URL in frontend components
-4. Add more problems to database
-
-### Medium Term
-5. Convert existing 10 workshops to interactive
-6. Add student authentication
-7. Create progress tracking dashboard
-
-### Long Term (Phase 2)
-8. Add AI/ML focused sections
-9. Create ML-specific workshops
-10. Enhance existing sections with ML examples
-
-## 📞 Questions?
-
-### Architecture
-See `IMPLEMENTATION_PROGRESS.md` for detailed architecture diagrams
-
-### Phase 1 Details
-See `PHASE1_SUMMARY.md` in session folder for complete implementation summary
-
-### Plan & Roadmap
-See `plan.md` in session folder for full planning document
-
-## 🎓 For Students
-
-Once the system is deployed:
-
-1. **Access the book** at the course website
-2. **Read theory sections** to learn concepts
-3. **Try workshop problems** with interactive verification
-4. **Get instant feedback** on your solutions
-5. **Review explanations** if you get it wrong
-6. **Track your progress** (coming soon)
 
 ---
 
-**Status**: Phase 1 Complete ✅  
-**Ready for**: Testing, Deployment, Phase 2  
-**Repository**: https://github.com/naranjo-jd/Linear-Book
+## 6. Re-renderizar con Quarto (opcional)
+
+Si tienes Quarto instalado, puedes modificar los archivos `.qmd` y re-generar el sitio:
+
+```bash
+# Instalar Quarto: https://quarto.org/docs/get-started/
+# (requiere macOS GUI o sudo)
+
+cd Linear-Book
+
+# Renderizar todo el sitio en docs/
+quarto render
+
+# O solo un archivo
+quarto render talleres/taller1.qmd
+
+# Modo preview con live-reload (reemplaza al servidor Python)
+quarto preview
+# → abre el navegador automáticamente en http://localhost:4200
+```
+
+> Sin Quarto, los archivos `.qmd` no se pueden modificar y ver en el navegador. El sitio pre-renderizado en `docs/` funciona sin Quarto.
+
+---
+
+## 7. Solución de problemas
+
+### El taller dice "No se pudo conectar al servidor"
+
+```bash
+# 1. Verificar que el backend está corriendo
+curl http://localhost:8000/api/v1/health
+
+# 2. Si no responde, arrancarlo
+cd Linear-Book/backend && source venv/bin/activate && python3 run.py
+```
+
+### "Problem not found" al enviar una respuesta
+
+El problema no está en la base de datos. Ejecuta el script de inserción del **Paso 1 de la sección 5**.
+
+```bash
+# Ver qué problemas existen
+cd Linear-Book/backend && source venv/bin/activate
+python3 -c "
+from app.db import SessionLocal; from app.models import Problem
+db = SessionLocal()
+for p in db.query(Problem).all():
+    print(f'{p.problem_id:20} | {p.problem_type:15} | {p.section}')
+db.close()
+"
+```
+
+### Reiniciar la base de datos desde cero
+
+```bash
+rm Linear-Book/backend/test.db
+cd Linear-Book/backend && source venv/bin/activate
+python3 -c "from app.db import init_db; init_db()"
+# Luego volver a insertar los problemas (sección 1 de esta guía)
+```
+
+### El puerto 8000 o 4200 ya está en uso
+
+```bash
+# Ver qué proceso usa el puerto
+lsof -i :8000
+lsof -i :4200
+
+# Terminar el proceso (reemplaza PID con el número real)
+kill -9 <PID>
+```
+
+---
+
+## 8. Estructura del proyecto
+
+```
+Linear-Book/
+├── backend/                     # API FastAPI
+│   ├── app/
+│   │   ├── main.py              # Punto de entrada, CORS
+│   │   ├── config.py            # Variables de entorno
+│   │   ├── db.py                # Conexión SQLite / PostgreSQL
+│   │   ├── models.py            # Modelos Problem, Submission
+│   │   ├── schemas.py           # Validación Pydantic
+│   │   ├── routes/
+│   │   │   ├── health.py        # GET /api/v1/health
+│   │   │   ├── problems.py      # GET /api/v1/problems/:id
+│   │   │   └── submissions.py   # POST /api/v1/submit/code|math|multiple-choice
+│   │   └── services/
+│   │       └── grader.py        # Lógica de calificación
+│   ├── run.py                   # Arranque del servidor
+│   ├── requirements.txt
+│   └── test.db                  # Base de datos SQLite (se crea automáticamente)
+│
+├── docs/                        # Sitio web pre-renderizado (servir con Python)
+│   ├── taller-interactive-demo.html   ← Demo interactiva principal
+│   ├── taller1.html … taller10.html
+│   ├── section0.html … section13.html
+│   ├── styles.css               # Sistema de estilos global
+│   └── site_libs/               # Bootstrap, MathJax, Quarto JS
+│
+├── frontend-components/         # Plantillas reutilizables de componentes
+│   ├── code-submission.html     # Widget de envío de código
+│   └── math-submission.html     # Widget de respuesta matemática
+│
+├── talleres/                    # Fuentes .qmd de los talleres
+├── sections/                    # Fuentes .qmd de las secciones teóricas
+├── styles.css                   # Fuente del CSS (se copia a docs/ manualmente)
+└── _quarto.yml                  # Configuración del sitio Quarto
+```
+
+---
+
+## 9. Referencia rápida de la API
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET`  | `/api/v1/health` | Estado del servidor |
+| `GET`  | `/api/v1/problems/{id}` | Datos de un problema |
+| `GET`  | `/api/v1/problems/section/{section}` | Problemas de una sección |
+| `POST` | `/api/v1/submit/code` | Enviar código Python |
+| `POST` | `/api/v1/submit/math` | Enviar respuesta numérica |
+| `POST` | `/api/v1/submit/multiple-choice` | Enviar opción múltiple |
+
+Documentación completa con formularios en `http://localhost:8000/docs`.

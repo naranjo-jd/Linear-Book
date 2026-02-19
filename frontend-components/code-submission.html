@@ -1,273 +1,119 @@
-<!-- Code Submission Component for Interactive Problems -->
+<!-- Componente: Envío de Código Python -->
 <div id="code-problem-{id}" class="interactive-problem code-submission-problem">
+
   <div class="problem-header">
+    <span class="problem-badge">⌨ Código Python</span>
     <h4>{title}</h4>
   </div>
-  
-  <div class="problem-description">
-    {description}
-  </div>
-  
+
+  <div class="problem-description">{description}</div>
+
   <div class="code-editor-container">
-    <label>Python Code:</label>
-    <textarea id="code-input-{id}" class="code-editor-input" placeholder="Write your Python/NumPy code here...">{initial_code}</textarea>
+    <label for="code-input-{id}">Tu solución</label>
+    <textarea
+      id="code-input-{id}"
+      class="code-editor-input"
+      spellcheck="false"
+      autocomplete="off"
+      placeholder="# Escribe tu código Python aquí..."
+    >{initial_code}</textarea>
   </div>
-  
+
   <div class="problem-controls">
-    <button class="btn btn-primary" onclick="submitCode('{id}')">Submit Code</button>
-    <button class="btn btn-secondary" onclick="resetCode('{id}')">Reset</button>
-    <span id="loading-{id}" class="loading hidden">Checking...</span>
+    <button class="btn btn-primary" onclick="submitCode('{id}')">
+      ▶ Ejecutar y verificar
+    </button>
+    <button class="btn btn-secondary" onclick="resetCode('{id}', `{initial_code}`)">
+      ↺ Restablecer
+    </button>
+    <span id="loading-{id}" class="loading hidden">Ejecutando…</span>
   </div>
-  
+
   <div id="feedback-{id}" class="feedback-container hidden">
-    <div id="feedback-status-{id}" class="feedback-status"></div>
+    <div id="feedback-status-{id}"  class="feedback-status"></div>
     <div id="feedback-message-{id}" class="feedback-message"></div>
-    <div id="feedback-output-{id}" class="feedback-output"></div>
+    <div id="feedback-output-{id}"  class="feedback-output"></div>
   </div>
 </div>
 
-<style>
-.interactive-problem {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px 0;
-  background: #fafafa;
-}
-
-.problem-header h4 {
-  margin: 0 0 10px 0;
-  color: #333;
-}
-
-.problem-description {
-  margin: 10px 0 15px 0;
-  color: #555;
-  line-height: 1.6;
-}
-
-.code-editor-container {
-  margin: 15px 0;
-}
-
-.code-editor-container label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #333;
-  font-size: 14px;
-}
-
-.code-editor-input {
-  width: 100%;
-  height: 180px;
-  padding: 12px;
-  font-family: 'Monaco', 'Courier New', 'Courier', monospace;
-  font-size: 13px;
-  line-height: 1.5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: white;
-  box-sizing: border-box;
-  resize: vertical;
-}
-
-.code-editor-input:focus {
-  outline: none;
-  border-color: #0066cc;
-  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
-}
-
-.problem-controls {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  align-items: center;
-}
-
-.btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.btn-primary {
-  background: #0066cc;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0052a3;
-}
-
-.btn-primary:active {
-  transform: scale(0.98);
-}
-
-.btn-secondary {
-  background: #f0f0f0;
-  color: #333;
-}
-
-.btn-secondary:hover {
-  background: #e0e0e0;
-}
-
-.loading {
-  color: #666;
-  font-size: 14px;
-}
-
-.loading.hidden {
-  display: none;
-}
-
-.feedback-container {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 4px;
-  background: white;
-}
-
-.feedback-container.hidden {
-  display: none;
-}
-
-.feedback-status {
-  font-weight: 600;
-  padding: 10px;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
-
-.feedback-status.correct {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-
-.feedback-status.incorrect {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-.feedback-status.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-}
-
-.feedback-message {
-  margin: 10px 0;
-  padding: 10px;
-  border-left: 4px solid #0066cc;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-size: 13px;
-  color: #333;
-  line-height: 1.5;
-}
-
-.feedback-output {
-  margin-top: 10px;
-  padding: 10px;
-  background: #f5f5f5;
-  border-radius: 4px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  font-family: 'Monaco', 'Courier New', monospace;
-  font-size: 12px;
-  max-height: 200px;
-  overflow: auto;
-  color: #333;
-  line-height: 1.4;
-}
-</style>
-
 <script>
-// Configuration - set this in the Quarto document
-const API_BASE_URL = window.LINEAR_ALGEBRA_API_URL || 'http://localhost:8000/api/v1';
+(function () {
+  // URL del API — se puede sobreescribir globalmente con window.LINEAR_ALGEBRA_API_URL
+  const API_BASE = window.LINEAR_ALGEBRA_API_URL || 'http://localhost:8000/api/v1';
 
-async function submitCode(problemId) {
-  const codeInput = document.getElementById(`code-input-${problemId}`);
-  const feedbackDiv = document.getElementById(`feedback-${problemId}`);
-  const statusDiv = document.getElementById(`feedback-status-${problemId}`);
-  const messageDiv = document.getElementById(`feedback-message-${problemId}`);
-  const outputDiv = document.getElementById(`feedback-output-${problemId}`);
-  const loadingSpan = document.getElementById(`loading-${problemId}`);
-  
-  const code = codeInput.value.trim();
-  
-  if (!code) {
-    statusDiv.className = 'feedback-status error';
-    statusDiv.textContent = '⚠ Please enter some code';
-    feedbackDiv.classList.remove('hidden');
-    return;
-  }
-  
-  // Show loading
-  loadingSpan.classList.remove('hidden');
-  feedbackDiv.classList.add('hidden');
-  
-  try {
-    const response = await fetch(`${API_BASE_URL}/submit/code`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        problem_id: problemId,
-        code: code,
-        user_id: null
-      })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
-    
-    const result = await response.json();
-    
-    feedbackDiv.classList.remove('hidden');
-    
-    if (result.is_correct) {
-      statusDiv.className = 'feedback-status correct';
-      statusDiv.textContent = '✓ Correct!';
-    } else {
-      statusDiv.className = 'feedback-status incorrect';
-      statusDiv.textContent = '✗ Incorrect';
-    }
-    
-    messageDiv.textContent = result.feedback || 'No feedback';
-    
-    if (result.execution_output) {
-      outputDiv.textContent = `Output:\n${result.execution_output}`;
-    } else if (result.execution_error) {
-      outputDiv.textContent = `Error:\n${result.execution_error}`;
-    } else {
-      outputDiv.textContent = '';
-    }
-    
-  } catch (error) {
-    feedbackDiv.classList.remove('hidden');
-    statusDiv.className = 'feedback-status error';
-    statusDiv.textContent = '✗ Error submitting code';
-    messageDiv.textContent = `Error: ${error.message}\n\nMake sure the backend API is running.`;
-    outputDiv.textContent = '';
-  } finally {
-    loadingSpan.classList.add('hidden');
-  }
-}
+  window.submitCode = async function (problemId) {
+    const textarea   = document.getElementById(`code-input-${problemId}`);
+    const feedback   = document.getElementById(`feedback-${problemId}`);
+    const statusEl   = document.getElementById(`feedback-status-${problemId}`);
+    const messageEl  = document.getElementById(`feedback-message-${problemId}`);
+    const outputEl   = document.getElementById(`feedback-output-${problemId}`);
+    const loadingEl  = document.getElementById(`loading-${problemId}`);
+    const submitBtn  = feedback.closest('.interactive-problem').querySelector('.btn-primary');
 
-function resetCode(problemId) {
-  document.getElementById(`code-input-${problemId}`).value = '';
-  document.getElementById(`feedback-${problemId}`).classList.add('hidden');
-}
+    const code = textarea.value.trim();
+
+    if (!code) {
+      _showStatus(statusEl, 'error', '⚠ Por favor escribe tu código antes de enviar.');
+      messageEl.textContent = '';
+      outputEl.textContent  = '';
+      feedback.classList.remove('hidden');
+      return;
+    }
+
+    // Estado de carga
+    loadingEl.classList.remove('hidden');
+    feedback.classList.add('hidden');
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch(`${API_BASE}/submit/code`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ problem_id: problemId, code, user_id: null }),
+      });
+
+      if (!res.ok) {
+        const detail = await res.json().catch(() => ({}));
+        throw new Error(detail.detail || `Error del servidor (${res.status})`);
+      }
+
+      const data = await res.json();
+
+      _showStatus(
+        statusEl,
+        data.is_correct ? 'correct' : 'incorrect',
+        data.is_correct ? '✓ ¡Correcto!' : '✗ Respuesta incorrecta'
+      );
+      messageEl.textContent = data.feedback || '';
+
+      if (data.execution_output) {
+        outputEl.textContent = `$ Salida:\n${data.execution_output}`;
+      } else if (data.execution_error) {
+        outputEl.textContent = `$ Error:\n${data.execution_error}`;
+      } else {
+        outputEl.textContent = '';
+      }
+
+    } catch (err) {
+      _showStatus(statusEl, 'error', '⚠ No se pudo conectar al servidor');
+      messageEl.textContent =
+        `${err.message}\n\nAsegúrate de que el backend está corriendo en http://localhost:8000`;
+      outputEl.textContent = '';
+    } finally {
+      loadingEl.classList.add('hidden');
+      submitBtn.disabled = false;
+      document.getElementById(`feedback-${problemId}`).classList.remove('hidden');
+    }
+  };
+
+  window.resetCode = function (problemId, initialCode) {
+    document.getElementById(`code-input-${problemId}`).value = initialCode || '';
+    document.getElementById(`feedback-${problemId}`).classList.add('hidden');
+  };
+
+  function _showStatus(el, type, text) {
+    el.className = `feedback-status ${type}`;
+    el.textContent = text;
+  }
+})();
 </script>
